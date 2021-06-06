@@ -763,6 +763,16 @@ KBUILD_CFLAGS += $(call cc-ifversion, -gt, 0900, \
 			$(call cc-disable-warning,array-bounds,) \
 			$(call cc-disable-warning,stringop-overflow,))
 
+# Tell compiler to tune the performance of the code for a specified
+# target processor
+ifeq ($(cc-name),gcc)
+KBUILD_CFLAGS += -mcpu=cortex-a76.cortex-a55
+KBUILD_AFLAGS += -mcpu=cortex-a76.cortex-a55
+else ifeq ($(cc-name),clang)
+KBUILD_CFLAGS += -mcpu=cortex-a55
+KBUILD_AFLAGS += -mcpu=cortex-a55
+endif
+
 KBUILD_CFLAGS += $(call cc-ifversion, -lt, 0409, \
 			$(call cc-disable-warning,maybe-uninitialized,))
 
