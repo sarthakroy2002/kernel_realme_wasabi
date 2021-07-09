@@ -29,10 +29,9 @@ make -j$(nproc --all) O=out \
 
 function zupload()
 {
-git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git AnyKernel
+git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git -b RMX2001  AnyKernel
 cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 cd AnyKernel
-nano anykernel.sh
 zip -r9 Test-OSS-KERNEL-RMX2001-NEOLIT.zip *
 #curl --upload-file Test-OSS-KERNEL-RMX2020-NEOLIT.zip https://transfer.sh/
 curl -sL https://git.io/file-transfer | sh
