@@ -101,6 +101,7 @@ static __init int kernel_exit_sysctls_init(void)
 	return 0;
 }
 late_initcall(kernel_exit_sysctls_init);
+#endif
 
 static atomic_t oops_count = ATOMIC_INIT(0);
 
