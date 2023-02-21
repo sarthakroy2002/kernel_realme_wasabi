@@ -9,12 +9,7 @@ ccache -M 100G
 export ARCH=arm64
 export KBUILD_BUILD_HOST=neolit
 export KBUILD_BUILD_USER="sarthakroy2002"
-mkdir clang && cd clang
-bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
-sudo apt install libelf-dev libarchive-tools
-bash -c "$(wget -O - https://gist.githubusercontent.com/dakkshesh07/240736992abf0ea6f0ee1d8acb57a400/raw/e97b505653b123b586fc09fda90c4076c8030732/patch-for-old-glibc.sh)"
-ls
-cd ..
+git clone --depth=1 https://github.com/kdrag0n/proton-clang clang
 
 [ -d "out" ] && rm -rf out || mkdir -p out
 
