@@ -488,6 +488,7 @@ static int simple_lmk_init_set(const char *val, const struct kernel_param *kp)
 {
 	static atomic_t init_done = ATOMIC_INIT(0);
 	struct task_struct *thread;
+	struct sysinfo i;
 
 	if (!atomic_cmpxchg(&init_done, 0, 1)) {
 		thread = kthread_run(simple_lmk_reaper_thread, NULL,
@@ -497,6 +498,17 @@ static int simple_lmk_init_set(const char *val, const struct kernel_param *kp)
 				     "simple_lmkd");
 		BUG_ON(IS_ERR(thread));
 		BUG_ON(vmpressure_notifier_register(&vmpressure_notif));
+	}
+
+	si_meminfo(&i);
+	if (i.totalram << (PAGE_SHIFT-10) > 4096ull * 1024) {
+	  // from - phone-xhdpi-6144-dalvik-heap.mk
+	  slmk_minfree = 125;
+	  slmk_timeout = 160;
+	} else {
+	  // from - phone-xhdpi-4096-dalvik-heap.mk
+	  slmk_minfree = 155;
+	  slmk_timeout = 145;
 	}
 
 	return 0;
